@@ -101,3 +101,12 @@ endif(UNIX)
 INSTALL(TARGETS fann fann_static LIBRARY DESTINATION ${LIB_INSTALL_DIR}
         ARCHIVE DESTINATION ${LIB_INSTALL_DIR}
         RUNTIME DESTINATION ${BIN_INSTALL_DIR} )
+
+################ compile sandboxed fann ###########
+
+SET(fann_LIB_SRCS sandbox_fann.cpp)
+
+find_package(rlbox-sandboxing-api CONFIG REQUIRED)
+set(CMAKE_POSITION_INDEPENDENT_CODE ON)
+ADD_LIBRARY(sandboxfann SHARED ${fann_LIB_SRCS})
+target_link_libraries(sandboxfann rlbox-sandboxing-api fann)

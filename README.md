@@ -73,3 +73,7 @@ The fann port in vcpkg is kept up to date by Microsoft team members and communit
 To get started with FANN, go to the [FANN help site](http://leenissen.dk/fann/wp/help/), which will include links to all the available resources. 
 
 For more information about FANN, please refer to the [FANN website](http://leenissen.dk/fann/wp/)
+
+## Sandboxed Python FANN
+
+The sandboxed version of FANN library is exposed to python via ctypes. The python file is in sandboxfann.py and RLBox code that is sandbox is in sandbox_fann.cpp
