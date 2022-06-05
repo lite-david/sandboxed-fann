@@ -3,7 +3,11 @@
 *.suo
 *.user
 *.opensdf
+*.o
+*.wasm
 ipch
+wasi-sdk-12.0
+wasm2c_sandbox_compiler
 Debug
 Release
 /bin/fanndoubled.dll

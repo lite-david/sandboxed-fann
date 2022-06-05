@@ -76,4 +76,13 @@ For more information about FANN, please refer to the [FANN website](http://leeni
 
 ## Sandboxed Python FANN
 
-The sandboxed version of FANN library is exposed to python via ctypes. The python file is in sandboxfann.py and RLBox code that is sandbox is in sandbox_fann.cpp
+The sandboxed version of FANN library is exposed to python via ctypes. The python file is in `src/sandboxfann.py` and RLBox code that is sandbox is in `src/sandbox_fann.cpp`
+To setup the WASM compilers run `setup.sh`. This will install and build the required compilers for wasm based sandboxing.
+Steps to build sandboxed fann:
+```
+./gen_wasm_lib.sh 
+cmake .
+cd src
+make
+```
+This will generate wasmsandboxfann.so and sandboxfann.so which are dlls which can be loaded in python
