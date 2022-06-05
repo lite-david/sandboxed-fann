@@ -80,7 +80,8 @@ The sandboxed version of FANN library is exposed to python via ctypes. The pytho
 To setup the WASM compilers run `setup.sh`. This will install and build the required compilers for wasm based sandboxing.
 Steps to build sandboxed fann:
 ```
-./setup.sh 
+./setup.sh
+./gen_wasm_lib.sh
 cmake .
 cd src
 make
