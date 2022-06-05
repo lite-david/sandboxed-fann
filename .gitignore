@@ -8,6 +8,7 @@
 ipch
 wasi-sdk-12.0
 wasm2c_sandbox_compiler
+wasi-sdk-12.0-linux.tar.gz
 Debug
 Release
 /bin/fanndoubled.dll
