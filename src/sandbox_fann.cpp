@@ -16,11 +16,11 @@ using namespace rlbox;
 // Define base type for mylib using the noop sandbox
 RLBOX_DEFINE_BASE_TYPES_FOR(toylib, noop);
 
-int sandboxed_train(float **data) {
+int sandboxed_train(float* data) {
     printf("asdfqweerty\n");
     for (int i = 0; i < 2; i++) {
         for (int j = 0; j < 2; j++) {
-            printf("%f \n", data[i][j]);
+            printf("%f \n", data[i*2 + j]);
         }
     }
     //change arg to pass in the input
