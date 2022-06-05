@@ -17,6 +17,8 @@ using namespace rlbox;
 RLBOX_DEFINE_BASE_TYPES_FOR(toylib, noop);
 
 int sandboxed_train() {
+    printf("asdfqweerty\n");
+    //change arg to pass in the input
     const unsigned int num_input = 2;
     const unsigned int num_output = 1;
     const unsigned int num_layers = 3;
@@ -25,14 +27,33 @@ int sandboxed_train() {
     const unsigned int max_epochs = 500000;
     const unsigned int epochs_between_reports = 1000;
 
+    // dont need to sandbox this
     struct fann *ann = fann_create_standard(num_layers, num_input,
         num_neurons_hidden, num_output);
 
+    //don't need to sandbox this
     fann_set_activation_function_hidden(ann, FANN_SIGMOID_SYMMETRIC);
     fann_set_activation_function_output(ann, FANN_SIGMOID_SYMMETRIC);
+
+    //need to pass input data into struct fann_train_data
+    //into function
+    //fann_type is a float, was imported from fann.h
+
+    //call sandboxed train beforehand
+    //create sandbox, taint input data, 
+    //use rlbox to call fann_train_on_data
+    //fann_train_on_data(ann, )
+
+    //retrieve tainted values and save it to ann
 
     fann_save(ann, "xor_float.net");
 
     fann_destroy(ann);
     return 0;
+}
+
+
+//create sandbox_test here and in
+int sandboxed_test() {
+    return 1;
 }
