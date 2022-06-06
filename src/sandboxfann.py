@@ -14,7 +14,6 @@ if __name__ == "__main__":
     #y = np.array([0.0,1.0], dtype=np.float32)
     x = np.array([[-1,-1],[-1,1],[1,-1],[1,1]], dtype = np.float32)
     y = np.array([[-1],[1],[1],[-1]], dtype = np.float32)
-    print(x)
     floatpp = ndpointer(dtype=np.float32, ndim=2)
     floatp = ndpointer(dtype=np.float32, ndim=1)
 
@@ -28,13 +27,15 @@ if __name__ == "__main__":
         nout = 0
     else:
         nout = len(y[0])
+    print("Training:")
     c_lib.sandboxed_train(x, y, nrows, ncols, nout)
 
     print("*********")
+    print("Testing:")
     c_lib.sandboxed_test.argtypes = [floatpp, floatpp, c_int, c_int, c_int]
     c_lib.sandboxed_test.restype = c_float
     mse = c_lib.sandboxed_test(x, y, nrows, ncols, nout)
     print("Mse:", mse)
 
-    print("*********")
-    c_lib.ref_train_test()
+    # print("*********")
+    # c_lib.ref_train_test()
