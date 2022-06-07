@@ -5,6 +5,8 @@
 *.opensdf
 *.o
 *.wasm
+src/fannwasm.c
+src/fannwasm.h
 ipch
 wasi-sdk-12.0
 wasm2c_sandbox_compiler

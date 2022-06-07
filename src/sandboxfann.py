@@ -17,7 +17,7 @@ if __name__ == "__main__":
     floatpp = ndpointer(dtype=np.float32, ndim=2)
     floatp = ndpointer(dtype=np.float32, ndim=1)
 
-    c_lib.sandboxed_train.argtypes = [floatpp, floatpp, c_int, c_int, c_int]
+    c_lib.sandboxed_train_and_test.argtypes = [floatpp, floatpp, c_int, c_int, c_int, floatpp, floatpp, c_int]
     nrows = len(x)
     if nrows > 0:
         ncols = len(x[0])
@@ -28,14 +28,6 @@ if __name__ == "__main__":
     else:
         nout = len(y[0])
     print("Training:")
-    c_lib.sandboxed_train(x, y, nrows, ncols, nout)
-
-    print("*********")
-    print("Testing:")
-    c_lib.sandboxed_test.argtypes = [floatpp, floatpp, c_int, c_int, c_int]
-    c_lib.sandboxed_test.restype = c_float
-    mse = c_lib.sandboxed_test(x, y, nrows, ncols, nout)
+    c_lib.sandboxed_train_and_test.restype = c_float
+    mse = c_lib.sandboxed_train_and_test(x, y, nrows, ncols, nout, x, y, nrows)
     print("Mse:", mse)
-
-    # print("*********")
-    # c_lib.ref_train_test()

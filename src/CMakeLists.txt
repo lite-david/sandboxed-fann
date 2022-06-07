@@ -102,15 +102,6 @@ INSTALL(TARGETS fann fann_static LIBRARY DESTINATION ${LIB_INSTALL_DIR}
         ARCHIVE DESTINATION ${LIB_INSTALL_DIR}
         RUNTIME DESTINATION ${BIN_INSTALL_DIR} )
 
-################ compile sandboxed fann ###########
-
-SET(fann_LIB_SRCS sandbox_fann.cpp)
-
-find_package(rlbox-sandboxing-api CONFIG REQUIRED)
-set(CMAKE_POSITION_INDEPENDENT_CODE ON)
-ADD_LIBRARY(sandboxfann SHARED ${fann_LIB_SRCS})
-target_link_libraries(sandboxfann rlbox-sandboxing-api fann)
-
 
 ################ compile wasm sandboxed fann ###########
 SET(fann_LIB_SRCS sandbox_fann.cpp)
@@ -121,6 +112,11 @@ add_library(fannwasm fannwasm.c)
 add_library(wasm-rt-impl ${CMAKE_SOURCE_DIR}/wasm2c_sandbox_compiler/wasm2c/wasm-rt-impl.c)
 add_library(wasm-rt-wasi ${CMAKE_SOURCE_DIR}/wasm2c_sandbox_compiler/wasm2c/wasm-rt-wasi.c)
 add_library(wasm-rt-os-unix ${CMAKE_SOURCE_DIR}/wasm2c_sandbox_compiler/wasm2c/wasm-rt-os-unix.c)
-ADD_LIBRARY(wasmsandboxfann SHARED ${fann_LIB_SRCS})
+ADD_LIBRARY(sandboxfann SHARED ${fann_LIB_SRCS})
 target_include_directories(fannwasm PRIVATE ${CMAKE_SOURCE_DIR}/wasm2c_sandbox_compiler/wasm2c/)
-target_link_libraries(wasmsandboxfann rlbox-sandboxing-api fannwasm wasm-rt-impl wasm-rt-wasi wasm-rt-os-unix)
+target_include_directories(fannwasm PRIVATE ${CMAKE_SOURCE_DIR}/rlbox_wasm2c_sandbox/include/)
+target_include_directories(sandboxfann PRIVATE ${CMAKE_SOURCE_DIR}/wasm2c_sandbox_compiler/wasm2c/)
+target_include_directories(sandboxfann PRIVATE ${CMAKE_SOURCE_DIR}/rlbox_wasm2c_sandbox/include/)
+target_include_directories(sandboxfann PRIVATE /usr/local/include/rlbox)
+target_link_libraries(fannwasm rlbox-sandboxing-api wasm-rt-impl wasm-rt-wasi wasm-rt-os-unix)
+target_link_libraries(sandboxfann fannwasm)

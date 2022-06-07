@@ -5,7 +5,8 @@ wasi-sdk-12.0/bin/clang --sysroot wasi-sdk-12.0/share/wasi-sysroot/ -Isrc/includ
 wasi-sdk-12.0/bin/clang --sysroot wasi-sdk-12.0/share/wasi-sysroot/ -Isrc/include ./src/fann_train_data.c -c -o fann_train_data.o 
 wasi-sdk-12.0/bin/clang --sysroot wasi-sdk-12.0/share/wasi-sysroot/ -Isrc/include ./src/fann_error.c -c -o fann_error.o 
 wasi-sdk-12.0/bin/clang --sysroot wasi-sdk-12.0/share/wasi-sysroot/ -Isrc/include ./src/fann_cascade.c -c -o fann_cascade.o 
-wasi-sdk-12.0/bin/clang --sysroot wasi-sdk-12.0/share/wasi-sysroot/ wasm2c_sandbox_wrapper.o fann.o fann_io.o fann_train.o fann_train_data.o fann_error.o fann_cascade.o -Wl,--export-all -Wl,--no-entry -Wl,--growable-table -o fann.wasm -lstdc++ -lm -v
+wasi-sdk-12.0/bin/clang --sysroot wasi-sdk-12.0/share/wasi-sysroot/ -Isrc/include ./src/fann_pylib.c -c -o fann_pylib.o 
+wasi-sdk-12.0/bin/clang --sysroot wasi-sdk-12.0/share/wasi-sysroot/ wasm2c_sandbox_wrapper.o fann_pylib.o fann.o fann_io.o fann_train.o fann_train_data.o fann_error.o fann_cascade.o -Wl,--export-all -Wl,--no-entry -Wl,--growable-table -o fann.wasm -lstdc++ -lm -v
 wasm2c_sandbox_compiler/build/wasm2c -o fannwasm.c fann.wasm
 mv fannwasm.c src/fannwasm.c
 mv fannwasm.h src/fannwasm.h
