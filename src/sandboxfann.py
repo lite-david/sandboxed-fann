@@ -15,7 +15,6 @@ if __name__ == "__main__":
     x = np.array([[-1,-1],[-1,1],[1,-1],[1,1]], dtype = np.float32)
     y = np.array([[-1],[1],[1],[-1]], dtype = np.float32)
     floatpp = ndpointer(dtype=np.float32, ndim=2)
-    floatp = ndpointer(dtype=np.float32, ndim=1)
 
     c_lib.sandboxed_train_and_test.argtypes = [floatpp, floatpp, c_int, c_int, c_int, floatpp, floatpp, c_int]
     nrows = len(x)
